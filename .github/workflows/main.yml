@@ -27,17 +27,29 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Find Flutter project
+        run: |
+          PROJECT_DIR=$(dirname "$(find . -name pubspec.yaml -not -path './.git/*' -print -quit)")
+          if [ -z "$PROJECT_DIR" ] || [ "$PROJECT_DIR" = "." ]; then
+            PROJECT_DIR="."
+          fi
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+          echo "Flutter project: $PROJECT_DIR"
+
       - name: Get dependencies
         run: flutter pub get
+        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Analyze
         run: flutter analyze
+        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Build APK
         run: flutter build apk --release
+        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: al-tasawuq-alhur-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: "**/build/app/outputs/flutter-apk/app-release.apk"
