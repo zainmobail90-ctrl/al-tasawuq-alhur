@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>التسوق الحر - لوحة الإدارة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login" class="center">
+    <div class="card login-card">
+      <h1>التسوق الحر</h1>
+      <p>لوحة الإدارة</p>
+      <input id="email" type="email" placeholder="البريد الإلكتروني">
+      <input id="password" type="password" placeholder="كلمة المرور">
+      <button id="loginBtn">دخول</button>
+      <small id="loginError"></small>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <aside>
+      <div class="brand">🛵<span>التسوق الحر</span></div>
+      <button class="nav active" data-view="dashboard">الرئيسية</button>
+      <button class="nav" data-view="orders">الطلبات</button>
+      <button class="nav" data-view="customers">الزبائن</button>
+      <button id="logoutBtn" class="logout">تسجيل خروج</button>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <h2 id="pageTitle">الرئيسية</h2>
+          <span id="adminEmail"></span>
+        </div>
+      </header>
+
+      <section id="dashboard" class="view">
+        <div class="stats">
+          <div class="stat"><span>كل الطلبات</span><b id="total">0</b></div>
+          <div class="stat"><span>طلبات جديدة</span><b id="new">0</b></div>
+          <div class="stat"><span>قيد التنفيذ</span><b id="active">0</b></div>
+          <div class="stat"><span>تم التسليم</span><b id="done">0</b></div>
+        </div>
+        <div class="card">
+          <h3>آخر الطلبات</h3>
+          <div id="recent"></div>
+        </div>
+      </section>
+
+      <section id="orders" class="view hidden">
+        <div class="card">
+          <h3>كل الطلبات</h3>
+          <div id="ordersTable"></div>
+        </div>
+      </section>
+
+      <section id="customers" class="view hidden">
+        <div class="card">
+          <h3>الزبائن</h3>
+          <div id="customersTable"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="orderModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <h3>تفاصيل الطلب</h3>
+      <div id="orderDetails"></div>
+      <label>سعر البضاعة</label>
+      <input id="goodsPrice" type="number" min="0" placeholder="0">
+      <label>أجرة التوصيل</label>
+      <input id="deliveryFee" type="number" min="0" placeholder="0">
+      <label>الحالة</label>
+      <select id="status">
+        <option value="new">جديد</option>
+        <option value="accepted">تم قبول الطلب</option>
+        <option value="shopping">جاري شراء الطلب</option>
+        <option value="delivering">بالطريق</option>
+        <option value="delivered">تم التسليم</option>
+        <option value="cancelled">ملغي</option>
+      </select>
+      <button id="saveOrder">حفظ التغييرات</button>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
